@@ -16,15 +16,25 @@ extension StrOptionSet {
 client code
 
 :: hook on existed OptionSet
-extension VTDecodeInfoFlags : StrOptionSet {
+
+struct Color: OptionSet
+{
+    let rawValue: Int
+    static var red = Color(rawValue:   1 << 0)
+    static var green = Color(rawValue: 1 << 1)
+    static var blue = Color(rawValue:  1 << 2)
+}
+
+extension Color : StrOptionSet {
     static var labels: [Label] { return [
-        (.asynchronous, "asynchronous"),
-        (.frameDropped, "frameDropped"),
-        (.imageBufferModifiable, "imageBufferModifiable")
+        (.red , "red"),
+        (.green, "green"),
+        (.blue, "blue")
     ]}
 }
 
 :: print it
-let flags: VTDecodeInfoFlags = [.asynchronous, .frameDropped]
-print(flags) // asynchronous,frameDropped
+let purple: Color = [.red, .blue]
+print("purple:", purple) // output: purple: red,blue
+
 */
